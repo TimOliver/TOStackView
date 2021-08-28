@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'TOStackView'
-  s.version  = '1.0.0'
+  s.version  = '0.0.1'
   s.license  =  { :type => 'MIT', :file => 'LICENSE' }
   s.summary  = 'A basic container view that handles laying out a collection of subviews in vertical or horizontal alignments.'
   s.homepage = 'https://github.com/TimOliver/TOStackView'

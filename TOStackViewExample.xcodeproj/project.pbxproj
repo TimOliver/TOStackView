@@ -14,7 +14,19 @@
 		22AD47EA26D9E1500019629C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22AD47E826D9E1500019629C /* LaunchScreen.storyboard */; };
 		22AD47ED26D9E1500019629C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD47EC26D9E1500019629C /* main.m */; };
 		22AD47F626D9E2940019629C /* TOStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD47F526D9E2940019629C /* TOStackView.m */; };
+		22AD47FE26DA8B5D0019629C /* TOStackViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD47FD26DA8B5D0019629C /* TOStackViewTests.m */; };
+		22AD480526DA8B630019629C /* TOStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22AD47F526D9E2940019629C /* TOStackView.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22AD480026DA8B5D0019629C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22AD47CF26D9E14F0019629C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22AD47D626D9E14F0019629C;
+			remoteInfo = TOStackViewExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		22AD47D726D9E14F0019629C /* TOStackViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOStackViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,10 +41,20 @@
 		22AD47EC26D9E1500019629C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22AD47F426D9E2940019629C /* TOStackView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TOStackView.h; sourceTree = "<group>"; };
 		22AD47F526D9E2940019629C /* TOStackView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOStackView.m; sourceTree = "<group>"; };
+		22AD47FB26DA8B5D0019629C /* TOStackViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TOStackViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22AD47FD26DA8B5D0019629C /* TOStackViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TOStackViewTests.m; sourceTree = "<group>"; };
+		22AD47FF26DA8B5D0019629C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		22AD47D426D9E14F0019629C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22AD47F826DA8B5D0019629C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,6 +69,7 @@
 			children = (
 				22AD47F326D9E1DA0019629C /* TOStackView */,
 				22AD47D926D9E14F0019629C /* TOStackViewExample */,
+				22AD47FC26DA8B5D0019629C /* TOStackViewTests */,
 				22AD47D826D9E14F0019629C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -55,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				22AD47D726D9E14F0019629C /* TOStackViewExample.app */,
+				22AD47FB26DA8B5D0019629C /* TOStackViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +108,15 @@
 			path = TOStackView;
 			sourceTree = "<group>";
 		};
+		22AD47FC26DA8B5D0019629C /* TOStackViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				22AD47FD26DA8B5D0019629C /* TOStackViewTests.m */,
+				22AD47FF26DA8B5D0019629C /* Info.plist */,
+			);
+			path = TOStackViewTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -104,6 +137,24 @@
 			productReference = 22AD47D726D9E14F0019629C /* TOStackViewExample.app */;
 			productType = "com.apple.product-type.application";
 		};
+		22AD47FA26DA8B5D0019629C /* TOStackViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22AD480226DA8B5D0019629C /* Build configuration list for PBXNativeTarget "TOStackViewTests" */;
+			buildPhases = (
+				22AD47F726DA8B5D0019629C /* Sources */,
+				22AD47F826DA8B5D0019629C /* Frameworks */,
+				22AD47F926DA8B5D0019629C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22AD480126DA8B5D0019629C /* PBXTargetDependency */,
+			);
+			name = TOStackViewTests;
+			productName = TOStackViewTests;
+			productReference = 22AD47FB26DA8B5D0019629C /* TOStackViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -114,6 +165,10 @@
 				TargetAttributes = {
 					22AD47D626D9E14F0019629C = {
 						CreatedOnToolsVersion = 12.5;
+					};
+					22AD47FA26DA8B5D0019629C = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 22AD47D626D9E14F0019629C;
 					};
 				};
 			};
@@ -131,6 +186,7 @@
 			projectRoot = "";
 			targets = (
 				22AD47D626D9E14F0019629C /* TOStackViewExample */,
+				22AD47FA26DA8B5D0019629C /* TOStackViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -143,6 +199,13 @@
 				22AD47EA26D9E1500019629C /* LaunchScreen.storyboard in Resources */,
 				22AD47E726D9E1500019629C /* Assets.xcassets in Resources */,
 				22AD47E526D9E14F0019629C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22AD47F926DA8B5D0019629C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,7 +223,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22AD47F726DA8B5D0019629C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22AD480526DA8B630019629C /* TOStackView.m in Sources */,
+				22AD47FE26DA8B5D0019629C /* TOStackViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22AD480126DA8B5D0019629C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22AD47D626D9E14F0019629C /* TOStackViewExample */;
+			targetProxy = 22AD480026DA8B5D0019629C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		22AD47E326D9E14F0019629C /* Main.storyboard */ = {
@@ -332,6 +412,46 @@
 			};
 			name = Release;
 		};
+		22AD480326DA8B5D0019629C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6LF3GMKZAB;
+				INFOPLIST_FILE = TOStackViewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tim.TOStackViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOStackViewExample.app/TOStackViewExample";
+			};
+			name = Debug;
+		};
+		22AD480426DA8B5D0019629C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6LF3GMKZAB;
+				INFOPLIST_FILE = TOStackViewTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.tim.TOStackViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TOStackViewExample.app/TOStackViewExample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -349,6 +469,15 @@
 			buildConfigurations = (
 				22AD47F126D9E1500019629C /* Debug */,
 				22AD47F226D9E1500019629C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22AD480226DA8B5D0019629C /* Build configuration list for PBXNativeTarget "TOStackViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22AD480326DA8B5D0019629C /* Debug */,
+				22AD480426DA8B5D0019629C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

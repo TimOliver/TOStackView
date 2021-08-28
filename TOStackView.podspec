@@ -7,6 +7,6 @@ Pod::Spec.new do |s|
   s.author   = 'Tim Oliver'
   s.source   = { :git => 'https://github.com/TimOliver/TOStackView.git', :tag => s.version.to_s }
   s.requires_arc = true
-  s.platform = :ios, '13.0'
+  s.platform = :ios, '9.0'
   s.source_files = 'TOStackView/**/*.{h,m}'
 end

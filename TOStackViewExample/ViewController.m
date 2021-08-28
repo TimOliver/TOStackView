@@ -19,6 +19,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self makeSafariToolbar];
+    //[self makeComicsBar];
+}
+
+- (void)makeComicsBar
+{
+    UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    leftLabel.text = @"< Back to pg. 5";
+    leftLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    [leftLabel sizeToFit];
+
+    UILabel *middleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    middleLabel.text = @"1/20";
+    [middleLabel sizeToFit];
+
+    UIImageView *pageIcon = [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:@"book.circle"]];
+    pageIcon.frame = (CGRect){0, 0, 30, 30};
+
+    self.stackView = [[TOStackView alloc] initWithArrangedSubviews:@[leftLabel, middleLabel, pageIcon]];
+    [self.view addSubview:self.stackView];
+}
+
+- (void)makeSafariToolbar
+{
     // Create 5 buttons we can test with
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [backButton setImage:[UIImage systemImageNamed:@"chevron.backward"] forState:UIControlStateNormal];
@@ -42,8 +66,6 @@
 
     self.stackView = [[TOStackView alloc] initWithArrangedSubviews:@[backButton, forwardButton,
                                                                      shareButton, bookmarksButton, tabsButton]];
-
-    self.stackView.backgroundColor = [UIColor redColor];
 
     [self.view addSubview:self.stackView];
 }

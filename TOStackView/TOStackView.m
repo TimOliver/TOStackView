@@ -104,28 +104,28 @@
     [super layoutSubviews];
 
     // Save the size we have to work with
-    CGSize size = self.frame.size;
+    const CGSize size = self.frame.size;
 
     // Capture whether we are laying out vertically or horizontal
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Manually lay out the first and last views
-    UIView *firstView = _arrangedSubviews.firstObject;
+    UIView *const firstView = _arrangedSubviews.firstObject;
     [self _layoutSubview:firstView offset:0.0f];
 
     // Align the last view manually since relying on floating point offsets
     // can sometimes result with it either over or under shooting it
-    UIView *lastView = _arrangedSubviews.lastObject;
+    UIView *const lastView = _arrangedSubviews.lastObject;
     [self _layoutSubview:lastView offset:0.0f];
 
     // If we have an odd number of views, align the middle one in the center
     UIView *midView = nil;
-    NSInteger midIndex = floorf((CGFloat)_arrangedSubviews.count / 2.0f);
+    const NSInteger midIndex = floorf((CGFloat)_arrangedSubviews.count / 2.0f);
     if (_arrangedSubviews.count % 2 != 0) {
         midView = _arrangedSubviews[midIndex];
-        CGSize viewSize = midView.frame.size;
-        CGFloat offset = isHorizontal ? (size.width - viewSize.width) * 0.5f :
-                                        (size.height - viewSize.height) * 0.5f;
+        const CGSize viewSize = midView.frame.size;
+        const CGFloat offset = isHorizontal ? (size.width - viewSize.width) * 0.5f :
+                                              (size.height - viewSize.height) * 0.5f;
         [self _layoutSubview:midView offset:offset];
     }
 
@@ -139,27 +139,27 @@
 }
 
 - (void)_layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView TOSTACKVIEW_DIRECT {
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
-    NSInteger firstIndex = [_arrangedSubviews indexOfObject:firstView];
-    NSInteger lastIndex = [_arrangedSubviews indexOfObject:lastView];
+    const NSInteger firstIndex = [_arrangedSubviews indexOfObject:firstView];
+    const NSInteger lastIndex = [_arrangedSubviews indexOfObject:lastView];
 
     // Work out the number of remaining in-between views on either side
-    NSInteger inBetweenCount = (lastIndex - firstIndex) - 1;
+    const NSInteger inBetweenCount = (lastIndex - firstIndex) - 1;
 
     // Work out usable space for left hand views
-    CGFloat spacing = [self _spacingBetween:firstView lastView:lastView];
+    const CGFloat spacing = [self _spacingBetween:firstView lastView:lastView];
 
     // Divide that by the number of in between
-    CGFloat segmentWidth = spacing / (CGFloat)inBetweenCount;
+    const CGFloat segmentWidth = spacing / (CGFloat)inBetweenCount;
 
     // Work out segment starting point
-    CGRect frame = firstView.frame;
+    const CGRect frame = firstView.frame;
     CGFloat offset = isHorizontal ? CGRectGetMaxX(frame) : CGRectGetMaxY(frame);
 
     for (NSInteger i = firstIndex + 1; i < lastIndex; i++) {
-        UIView *subview = _arrangedSubviews[i];
-        CGSize viewSize = subview.frame.size;
+        UIView *const subview = _arrangedSubviews[i];
+        const CGSize viewSize = subview.frame.size;
         CGFloat viewOffset = offset + (segmentWidth * 0.5f);
         viewOffset -= (isHorizontal ? viewSize.width : viewSize.height) * 0.5f;
         [self _layoutSubview:subview offset:viewOffset];
@@ -168,10 +168,10 @@
 }
 
 - (CGFloat)_spacingBetween:(UIView *)firstView lastView:(UIView *)lastView TOSTACKVIEW_DIRECT {
-    CGRect firstFrame = firstView.frame;
-    CGRect lastFrame = lastView.frame;
+    const CGRect firstFrame = firstView.frame;
+    const CGRect lastFrame = lastView.frame;
 
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
     if (isHorizontal) {
         return CGRectGetMinX(lastFrame) - CGRectGetMaxX(firstFrame);
     }
@@ -180,20 +180,20 @@
 }
 
 - (void)_layoutSubview:(UIView *)subview offset:(CGFloat)offset TOSTACKVIEW_DIRECT {
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Manually override for first and last frames
     if (subview == _arrangedSubviews.firstObject) {
         offset = 0.0f;
     } else if (subview == _arrangedSubviews.lastObject) {
-        CGSize frameSize = self.frame.size;
-        CGSize size = subview.frame.size;
+        const CGSize frameSize = self.frame.size;
+        const CGSize size = subview.frame.size;
         offset = isHorizontal ? frameSize.width - size.width :
                                 frameSize.height - size.height;
     }
 
     CGRect frame = subview.frame;
-    CGFloat alignment = [self _alignmentOffsetForView:subview];
+    const CGFloat alignment = [self _alignmentOffsetForView:subview];
     frame.origin.x = floorf(isHorizontal ? offset : alignment);
     frame.origin.y = floorf(isHorizontal ? alignment : offset);
     subview.frame = frame;
@@ -201,13 +201,13 @@
 
 - (CGFloat)_alignmentOffsetForView:(UIView *)view TOSTACKVIEW_DIRECT {
     // Work out what the perpendicular value of this view should be
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
-    CGSize frameSize = self.frame.size;
-    CGSize size = view.frame.size;
+    const CGSize frameSize = self.frame.size;
+    const CGSize size = view.frame.size;
 
     // Capture any intrinsic sizing for the view we'll need to adapt
-    UIEdgeInsets insets = [[view viewForFirstBaselineLayout] alignmentRectInsets];
+    const UIEdgeInsets insets = [[view viewForFirstBaselineLayout] alignmentRectInsets];
 
     // When horizontal, we're returning the Y value
     if (isHorizontal) {
@@ -239,7 +239,7 @@
     CGRect frame = self.frame;
     frame.size = CGSizeZero;
 
-    BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
+    const BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Loop through each subview to aggregate the size
     for (UIView *subview in _arrangedSubviews) {
@@ -253,7 +253,7 @@
     }
 
     // Add additional spacing to match minimum allowed amount
-    CGFloat spacing = (_arrangedSubviews.count - 1) * _minimumSpacing;
+    const CGFloat spacing = (_arrangedSubviews.count - 1) * _minimumSpacing;
     if (isHorizontal) { frame.size.width += spacing; }
     else { frame.size.height += spacing; }
 

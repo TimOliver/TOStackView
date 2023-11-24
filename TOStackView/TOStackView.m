@@ -31,8 +31,7 @@
 
 @implementation TOStackView
 
-- (instancetype)initWithLayoutAxis:(UILayoutConstraintAxis)axis
-{
+- (instancetype)initWithLayoutAxis:(UILayoutConstraintAxis)axis {
     if (self = [super initWithFrame:CGRectZero]) {
         _axis = axis;
         [self commonInit];
@@ -41,8 +40,7 @@
     return self;
 }
 
-- (instancetype)initWithArrangedSubviews:(NSArray<__kindof UIView *> *)subviews
-{
+- (instancetype)initWithArrangedSubviews:(NSArray<__kindof UIView *> *)subviews {
     if (self = [super initWithFrame:CGRectZero]) {
         _arrangedSubviews = [NSMutableArray arrayWithArray:subviews];
 
@@ -58,13 +56,11 @@
     return self;
 }
 
-- (void)commonInit
-{
+- (void)commonInit {
     _minimumSpacing = 20;
 }
 
-- (void)addArrangedSubview:(UIView *)subview
-{
+- (void)addArrangedSubview:(UIView *)subview {
     // We might get strange behaviour if we store the same view twice
     if ([_arrangedSubviews containsObject:subview]) { return; }
 
@@ -76,8 +72,7 @@
     [self setNeedsLayout];
 }
 
-- (void)removeArrangedSubview:(UIView *)subview
-{
+- (void)removeArrangedSubview:(UIView *)subview {
     // Make sure it's a view currently in the stack view
     if (![_arrangedSubviews containsObject:subview]) { return; }
 
@@ -89,8 +84,7 @@
     [self setNeedsLayout];
 }
 
-- (void)insertArrangedSubview:(UIView *)subview atIndex:(NSInteger)index
-{
+- (void)insertArrangedSubview:(UIView *)subview atIndex:(NSInteger)index {
     // Make sure it's a view currently in the stack view
     if (![_arrangedSubviews containsObject:subview]) { return; }
 
@@ -104,8 +98,7 @@
 
 #pragma mark - View Layout -
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
 
     // Save the size we have to work with
@@ -143,8 +136,7 @@
     }
 }
 
-- (void)layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView
-{
+- (void)layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView {
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     NSInteger firstIndex = [_arrangedSubviews indexOfObject:firstView];
@@ -173,8 +165,7 @@
     }
 }
 
-- (CGFloat)spacingBetween:(UIView *)firstView lastView:(UIView *)lastView
-{
+- (CGFloat)spacingBetween:(UIView *)firstView lastView:(UIView *)lastView {
     CGRect firstFrame = firstView.frame;
     CGRect lastFrame = lastView.frame;
 
@@ -186,8 +177,7 @@
     return CGRectGetMinY(lastFrame) - CGRectGetMaxY(firstFrame);
 }
 
-- (void)layoutSubview:(UIView *)subview offset:(CGFloat)offset
-{
+- (void)layoutSubview:(UIView *)subview offset:(CGFloat)offset {
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Manually override for first and last frames
@@ -207,8 +197,7 @@
     subview.frame = frame;
 }
 
-- (CGFloat)alignmentOffsetForView:(UIView *)view
-{
+- (CGFloat)alignmentOffsetForView:(UIView *)view {
     // Work out what the perpendicular value of this view should be
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
@@ -244,8 +233,7 @@
 
 #pragma mark - View Sizing -
 
-- (void)sizeToFit
-{
+- (void)sizeToFit {
     CGRect frame = self.frame;
     frame.size = CGSizeZero;
 
@@ -272,8 +260,7 @@
 
 #pragma mark - Accessors -
 
-- (NSArray<UIView *> *)arrangedSubviews
-{
+- (NSArray<UIView *> *)arrangedSubviews {
     return [NSArray arrayWithArray:_arrangedSubviews];
 }
 

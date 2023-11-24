@@ -20,8 +20,9 @@
 //  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 //  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
 #import "TOStackView.h"
+
+#define TOSTACKVIEW_DIRECT __attribute__((objc_direct))
 
 @interface TOStackView () {
     NSMutableArray *_arrangedSubviews;
@@ -34,7 +35,7 @@
 - (instancetype)initWithLayoutAxis:(UILayoutConstraintAxis)axis {
     if (self = [super initWithFrame:CGRectZero]) {
         _axis = axis;
-        [self commonInit];
+        [self _commonInit];
     }
 
     return self;
@@ -49,14 +50,15 @@
             [self addSubview:subview];
         }
 
-        [self commonInit];
+        [self _commonInit];
         [self sizeToFit];
     }
 
     return self;
 }
 
-- (void)commonInit {
+- (void)_commonInit TOSTACKVIEW_DIRECT {
+    self.layoutMargins = UIEdgeInsetsZero;
     _minimumSpacing = 20;
 }
 
@@ -109,12 +111,12 @@
 
     // Manually lay out the first and last views
     UIView *firstView = _arrangedSubviews.firstObject;
-    [self layoutSubview:firstView offset:0.0f];
+    [self _layoutSubview:firstView offset:0.0f];
 
     // Align the last view manually since relying on floating point offsets
     // can sometimes result with it either over or under shooting it
     UIView *lastView = _arrangedSubviews.lastObject;
-    [self layoutSubview:lastView offset:0.0f];
+    [self _layoutSubview:lastView offset:0.0f];
 
     // If we have an odd number of views, align the middle one in the center
     UIView *midView = nil;
@@ -124,19 +126,19 @@
         CGSize viewSize = midView.frame.size;
         CGFloat offset = isHorizontal ? (size.width - viewSize.width) * 0.5f :
                                         (size.height - viewSize.height) * 0.5f;
-        [self layoutSubview:midView offset:offset];
+        [self _layoutSubview:midView offset:offset];
     }
 
     // Work out the spacing of the remaining views between the first, last and optionally mid
     if (midView != nil) {
-        [self layoutSubviewsBetween:firstView lastView:midView];
-        [self layoutSubviewsBetween:midView lastView:lastView];
+        [self _layoutSubviewsBetween:firstView lastView:midView];
+        [self _layoutSubviewsBetween:midView lastView:lastView];
     } else {
-        [self layoutSubviewsBetween:firstView lastView:lastView];
+        [self _layoutSubviewsBetween:firstView lastView:lastView];
     }
 }
 
-- (void)layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView {
+- (void)_layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView TOSTACKVIEW_DIRECT {
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     NSInteger firstIndex = [_arrangedSubviews indexOfObject:firstView];
@@ -146,7 +148,7 @@
     NSInteger inBetweenCount = (lastIndex - firstIndex) - 1;
 
     // Work out usable space for left hand views
-    CGFloat spacing = [self spacingBetween:firstView lastView:lastView];
+    CGFloat spacing = [self _spacingBetween:firstView lastView:lastView];
 
     // Divide that by the number of in between
     CGFloat segmentWidth = spacing / (CGFloat)inBetweenCount;
@@ -160,12 +162,12 @@
         CGSize viewSize = subview.frame.size;
         CGFloat viewOffset = offset + (segmentWidth * 0.5f);
         viewOffset -= (isHorizontal ? viewSize.width : viewSize.height) * 0.5f;
-        [self layoutSubview:subview offset:viewOffset];
+        [self _layoutSubview:subview offset:viewOffset];
         offset += segmentWidth;
     }
 }
 
-- (CGFloat)spacingBetween:(UIView *)firstView lastView:(UIView *)lastView {
+- (CGFloat)_spacingBetween:(UIView *)firstView lastView:(UIView *)lastView TOSTACKVIEW_DIRECT {
     CGRect firstFrame = firstView.frame;
     CGRect lastFrame = lastView.frame;
 
@@ -177,7 +179,7 @@
     return CGRectGetMinY(lastFrame) - CGRectGetMaxY(firstFrame);
 }
 
-- (void)layoutSubview:(UIView *)subview offset:(CGFloat)offset {
+- (void)_layoutSubview:(UIView *)subview offset:(CGFloat)offset TOSTACKVIEW_DIRECT {
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Manually override for first and last frames
@@ -191,13 +193,13 @@
     }
 
     CGRect frame = subview.frame;
-    CGFloat alignment = [self alignmentOffsetForView:subview];
+    CGFloat alignment = [self _alignmentOffsetForView:subview];
     frame.origin.x = floorf(isHorizontal ? offset : alignment);
     frame.origin.y = floorf(isHorizontal ? alignment : offset);
     subview.frame = frame;
 }
 
-- (CGFloat)alignmentOffsetForView:(UIView *)view {
+- (CGFloat)_alignmentOffsetForView:(UIView *)view TOSTACKVIEW_DIRECT {
     // Work out what the perpendicular value of this view should be
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 

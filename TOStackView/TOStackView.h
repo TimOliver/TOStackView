@@ -70,6 +70,12 @@ NS_SWIFT_NAME(StackView)
 /// Insert a new subview at a specific index
 - (void)insertArrangedSubview:(UIView *)subview atIndex:(NSInteger)index;
 
+/// Set an additional offset for a view. Useful for views with their own internal padding.
+- (void)setAdditionalOffest:(CGPoint)offset forArrangedSubviewAtIndex:(NSInteger)index;
+
+/// Set an additional offset for a view. Useful for views with their own internal padding.
+- (void)setAdditionalOffest:(CGPoint)offset forArrangedSubview:(UIView *)view;
+
 /// Resizes the view to fit around all of the subviews
 - (void)sizeToFit;
 

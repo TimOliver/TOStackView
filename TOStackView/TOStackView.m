@@ -25,6 +25,7 @@
 
 @interface TOStackView () {
     NSMutableArray *_arrangedSubviews;
+    NSMapTable<UIView *, NSValue *> *_additionalViewOffsets;
 }
 
 @end
@@ -141,6 +142,9 @@
     } else {
         [self layoutSubviewsBetween:firstView lastView:lastView];
     }
+
+    // After all of the spacing and layout is complete, add an additional offsets to specific views
+    [self applyAdditionalOffsetsToSubviews];
 }
 
 - (void)layoutSubviewsBetween:(UIView *)firstView lastView:(UIView *)lastView
@@ -242,6 +246,21 @@
     }
 }
 
+- (void)applyAdditionalOffsetsToSubviews
+{
+    if (!_additionalViewOffsets) { return; }
+    for (UIView *subview in _additionalViewOffsets.keyEnumerator) {
+        NSValue *offsetValue = [_additionalViewOffsets objectForKey:subview];
+        CGPoint offset = [offsetValue CGPointValue];
+        subview.frame = ({
+            CGRect frame = subview.frame;
+            frame.origin.x += offset.x;
+            frame.origin.y += offset.y;
+            frame;
+        });
+    }
+}
+
 #pragma mark - View Sizing -
 
 - (void)sizeToFit
@@ -252,6 +271,7 @@
     BOOL isHorizontal = (self.axis == UILayoutConstraintAxisHorizontal);
 
     // Loop through each subview to aggregate the size
+    NSInteger index = 0;
     for (UIView *subview in _arrangedSubviews) {
         if (isHorizontal) {
             frame.size.height = MAX(frame.size.height, subview.frame.size.height);
@@ -260,6 +280,7 @@
             frame.size.width = MAX(frame.size.width, subview.frame.size.width);
             frame.size.height += subview.frame.size.height;
         }
+        index++;
     }
 
     // Add additional spacing to match minimum allowed amount
@@ -268,6 +289,19 @@
     else { frame.size.height += spacing; }
 
     self.frame = frame;
+}
+
+- (void)setAdditionalOffest:(CGPoint)offset forArrangedSubview:(UIView *)view {
+    if (!_additionalViewOffsets) {
+        _additionalViewOffsets = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsWeakMemory
+                                                       valueOptions:NSPointerFunctionsStrongMemory];
+    }
+    [_additionalViewOffsets setObject:[NSValue valueWithCGPoint:offset]
+                               forKey:view];
+}
+
+- (void)setAdditionalOffest:(CGPoint)offset forArrangedSubviewAtIndex:(NSInteger)index {
+    [self setAdditionalOffest:offset forArrangedSubview:_arrangedSubviews[index]];
 }
 
 #pragma mark - Accessors -

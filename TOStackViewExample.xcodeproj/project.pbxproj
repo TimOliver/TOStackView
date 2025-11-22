@@ -29,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		226D4A472ED19DB0002CC3C9 /* TOStackView.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = TOStackView.podspec; sourceTree = "<group>"; };
 		22AD47D726D9E14F0019629C /* TOStackViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOStackViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22AD47DA26D9E14F0019629C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22AD47DB26D9E14F0019629C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 				22AD47F326D9E1DA0019629C /* TOStackView */,
 				22AD47D926D9E14F0019629C /* TOStackViewExample */,
 				22AD47FC26DA8B5D0019629C /* TOStackViewTests */,
+				226D4A472ED19DB0002CC3C9 /* TOStackView.podspec */,
 				22AD47D826D9E14F0019629C /* Products */,
 			);
 			sourceTree = "<group>";

@@ -128,10 +128,17 @@
     UIView *midView = nil;
     NSInteger midIndex = floorf((CGFloat)_arrangedSubviews.count / 2.0f);
     if (_arrangedSubviews.count % 2 != 0) {
+        // In cases where the views aren't the same size, disregard aligning to the middle
+        CGFloat minimumOffset = 0.0;
+        for (NSInteger i = 0; i < midIndex; i++) {
+            CGRect frame = [_arrangedSubviews[i] frame];
+            minimumOffset += isHorizontal ? CGRectGetWidth(frame) : CGRectGetHeight(frame);
+            minimumOffset += _minimumSpacing;
+        }
         midView = _arrangedSubviews[midIndex];
         CGSize viewSize = midView.frame.size;
-        CGFloat offset = isHorizontal ? (size.width - viewSize.width) * 0.5f :
-                                        (size.height - viewSize.height) * 0.5f;
+        CGFloat offset = isHorizontal ? MAX((size.width - viewSize.width) * 0.5f, minimumOffset):
+                                        MAX((size.height - viewSize.height) * 0.5f, minimumOffset);
         [self layoutSubview:midView offset:offset];
     }
 
